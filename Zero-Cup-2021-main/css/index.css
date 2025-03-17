@@ -1,0 +1,867 @@
+@font-face {
+  font-family: "shangwei";
+  src: url(../XinDiZhaoMeng-1.otf);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100%;
+  /* white-space: nowrap; */
+  user-select: none;
+  background-color: #222;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.container > div {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+/* s3制作 */
+.container .sc3 {
+  margin: 0;
+  padding: 0;
+  height: 200vh;
+  width: 100%;
+  position: relative;
+  overflow-x: hidden;
+  background-color: transparent;
+  display: flex;
+}
+.sc3 .last {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items: center;
+  font-family: shangwei;
+  text-shadow:0 0 2.5px #FFCDC5,
+  0 0 5px #FFCDC5;
+  font-weight: 900;
+}
+.last .letter1 {
+  font-size: 8rem;
+  color: #B4CDA1;
+  transition: all ease 2s 0s;
+  opacity: 0;
+}
+
+.last .letter2 {
+  font-size: 6rem;
+  margin-top: 30px;
+  color: #FFBCB2;
+  transition: all ease 2s 1s;
+  opacity: 0;
+
+}
+.last .letter3 {
+  font-size: 11.5rem;
+  color: #FFBCB2;
+  transition: all ease 4s 2s;
+  opacity: 0;
+}
+
+.background {
+        background-image: url(../imgs/mountain.jpeg);
+        background-size: cover;
+        width: 100%;
+        height: 100%;
+        background-position: 50% 50%;
+        height: 200vh;
+        font: 800 37rem "";
+        line-height: 120vh;
+        text-shadow: -2 -2 15 rgba(255,255,255,1);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        position: relative;
+        /* z-index: 2; */
+        text-align: center;
+        overflow: hidden;
+}
+.background::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-image: inherit;
+  background-position: 50% 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: -4;;
+}
+
+
+.sc1 {
+  position: relative;
+  background-color: #000;
+}
+
+#s1video{
+  position: absolute;
+  right: 0.1rem;
+  top: 0.4rem;
+  width: 70%;
+  z-index: 0;
+}
+
+.sc1 > .player{
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
+  cursor: pointer;
+  width: 50vw;
+ height: 70vh;
+}
+#player {
+  width: inherit;
+  height: inherit;
+  object-fit: cover;
+}
+
+.sc1 p{
+  color: whitesmoke;
+}
+
+.sc1 .vidtitle{
+  font-size: 4.5rem;
+  margin: 3rem;
+  display: none;  
+  font-family: "STZhongsong";
+}
+
+.sc1 .vidsubtitle{
+  position: absolute;
+  top: 15rem;
+  left: 4rem;
+  color: gray;
+  animation: blink 3s infinite;
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50%{ opacity: 0; }
+  100%{ opacity: 1; }
+}
+
+
+.sc1 .vidintro{
+  position: absolute;
+  bottom: -1rem;
+  right: 1rem;
+  width: 50%;
+  margin: 3rem 4rem;
+  display: none;
+  font-family: "STZhongsong";
+  text-indent: 2em;
+  font-size: 1.3rem;
+}
+
+.sc2 {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  /* background-color: rgba(0,0,0,0.7); */
+  
+}
+
+.light {
+  display: flex;
+  position: absolute;
+  z-index: 3;
+  justify-content: center;
+  align-items: center;
+  /* background-color: darkgreen; */
+  width: 70vw;
+  height: 40vh;
+  transform: translateY(-70%);
+  overflow: hidden;
+}
+
+.light h1 {
+  font-family: Helvetica;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  font-size: 8.5rem;
+  font-family: "STZhongsong";
+  font-weight: bolder;
+  letter-spacing: 2.5rem;
+  position: relative;
+  /* animation: spotlight 5s infinite; */
+}
+
+.light h1::after {
+  content: attr(data-char);
+  color: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* font-size: 8rem;
+    letter-spacing: 2.5rem; */
+  -webkit-clip-path: ellipse(100px 100px at 0% 50%);
+  clip-path: ellipse(100px 100px at 0% 50%);
+  animation: spotlight 4s infinite;
+  /* transform: rotate(90deg); */
+  background-image: url(../imgs/pll.png);
+  /* background-size: 150%; */
+  background-position: center center;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+
+@keyframes spotlight {
+  0% {
+    -webkit-clip-path: ellipse(100px 100px at 0% 50%);
+    clip-path: ellipse(100px 100px at 0% 50%);
+  }
+
+  50% {
+    -webkit-clip-path: ellipse(100px 100px at 100% 50%);
+    clip-path: ellipse(100px 100px at 100% 50%);
+  }
+
+  100% {
+    -webkit-clip-path: ellipse(100px 100px at 0% 50%);
+    clip-path: ellipse(100px 100px at 0% 50%);
+  }
+}
+
+
+/* 制作点击的card11 */
+.runbox {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    /* height: 10%; */
+    /* left: 50%; */
+    top: 50%;
+    transform: translateY(-10%);
+    justify-content: space-between;
+    align-items: center;
+    z-index: 2;
+}
+
+.card1 {
+    position: relative;
+    width: 50%;
+    height: 350px;
+    border-radius: 1.2rem;
+    display: flex;
+    align-items: center;
+}
+
+.card1 .circle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #1d1a2c;
+    clip-path: circle(7.5rem at center);
+    transition: .5s;
+    border-radius: 1.2rem;
+    overflow: hidden;
+}
+
+.card1:hover .circle {
+    background-color: #103252;
+    clip-path: circle(100% at center);
+}
+
+
+.card1 img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 16.25rem;
+    transition: .5s;
+}
+
+.card1:hover img {
+    left: 75%;
+    height: 18.75rem;
+    filter: drop-shadow(0 0 4px #fff) drop-shadow(0 0 4px #fff);
+}
+
+.card1 .content {
+    position: relative;
+    width: 40%;
+    left: 20%;
+    padding: 20px 20px 20px 40px;
+    transition: .5s;
+    opacity: 0;
+    visibility: hidden;
+}
+
+
+.card1:hover .content {
+    top: 0;
+    left: 0;
+    opacity: 1;
+    visibility: visible;
+}
+
+.card1 .content h2 {
+    color: #fff;
+    font-size: 2em;
+}
+
+.card1 .content p {
+    color: #fff;
+    line-height: 1.8;
+}
+
+.card1 .content a {
+    display: inline-block;
+    background: #fff;
+    color: #103252;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    letter-spacing: 1px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+
+
+
+
+/*card2*/
+.card2 {
+    position: relative;
+    width: 50%;
+    height: 350px;
+    border-radius: 1.3rem;
+    display: flex;
+    align-items: center;
+}
+
+.card2 .circle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-color:transparent;
+    clip-path: circle(120px at center);
+    transition: .5s;
+    border-radius: 1.3rem;
+    overflow: hidden;
+}
+
+.card2:hover .circle {
+    background-color: rgb(150, 113, 113);
+    clip-path: circle(100% at center);
+}
+
+
+.card2 img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 21.875rem;
+    width: 21.875rem;
+    transition: .5s;
+}
+
+.card2:hover img {
+    left: 25%;
+    top: 50%;
+    height: 25rem;
+    width: 25rem;
+    filter: drop-shadow(0 0 4px #fff) drop-shadow(0 0 4px #fff);
+}
+
+.card2 .content {
+    position: relative;
+    width: 40%;
+    left: 50%;
+    padding: 20px 20px 20px 40px;
+    transition: .5s;
+    opacity: 0;
+    visibility: hidden;
+}
+
+
+.card2:hover .content {
+    top: 0;
+    right: 0;
+    opacity: 1;
+    visibility: visible;
+}
+
+.card2 .content h2 {
+    color: #fff;
+    font-size: 2em;
+}
+
+.card2 .content p {
+    color: #fff;
+    line-height: 1.8;
+}
+
+.card2 .content a {
+    display: inline-block;
+    background: #fff;
+    color: rgb(150, 113, 113);
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    letter-spacing: 1px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+
+#s2video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    position: absolute;
+    opacity: 0.5;
+}
+
+#s2video:hover {
+    opacity: 1;
+}
+/* 
+第三屏制作 */
+
+.comparison {
+  --image: url(../imgs/sc2_3.jpg);
+  --height: 100vh;
+  width: 100%;
+  min-width: 100%;
+  height: var(--height);
+  position: relative;
+  background-position: center;
+  overflow: hidden;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, .15);
+  border-radius: 4px;
+}
+
+.comparison::before,
+.comparison::after {
+  content: '';
+  display: block;
+  width: inherit;
+  height: inherit;
+  background-size: cover;
+  background-image: var(--image);
+  background-repeat: no-repeat;
+  background-position: center;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.comparison::before {
+  filter: grayscale(100%);
+}
+
+.comparison::after {
+  clip-path: inset(0 0 0 calc((var(--slide) / 10) * 1%));
+}
+
+
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+  margin: 0;
+  background: transparent;
+  z-index: 3;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: var(--height);
+  background: #000;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, .5);
+  border-radius: 15px;
+  cursor: ew-resize;
+}
+
+
+.sc2_9 {
+  position: relative;
+}
+/* sc2_9 */
+.section {
+  position: absolute;
+  z-index: 2;
+  width: 50%;
+  height: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  transform: scale(1);
+  will-change: transform, contents;
+  transition-property: all;
+  transition-duration: 500ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+.section::after {
+  position: absolute;
+  z-index: -2;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .7);
+  color: rgba(0, 0, 0, .3);
+  transition: background-color .7s ease,color .7s ease;
+  content: '';
+}
+.section:hover::after {
+  background-color: rgba(0, 0, 0, 0.15);
+  color: rgba(0, 0, 0, 0.1);;
+}
+
+.section:hover .demo-box {
+  opacity: 1;
+}
+
+.section:nth-child(1) {
+  top: 0;
+  left: 0;
+  background: #f06060;
+}
+.section:nth-child(2) {
+  top: 0;
+  left: 50%;
+  background: #fa987d;
+}
+.section:nth-child(3) {
+  top: 50%;
+  left: 0;
+  background: #72cca7;
+}
+.section:nth-child(4) {
+  top: 50%;
+  left: 50%;
+  background: #10a296;
+}
+.section.is-expanded {
+  top: 0;
+  left: 0;
+  z-index: 5;
+  width: 100%;
+  height: 100%;
+  cursor: initial;
+}
+
+.has-expanded-item .section:not(.is-expanded) {
+  transform: scale(0);
+}
+
+
+.close-section {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  width: 3rem;
+  height: 3rem;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  font-size: 4rem;
+  text-align: center;
+  color: #fff;
+  opacity: 0;
+  cursor: pointer;
+  pointer-events: none;
+  transition: opacity 150ms linear;
+  will-change: opacity;
+}
+
+
+.section.is-expanded .close-section {
+  opacity: 1;
+  transition-delay: 500ms;
+  pointer-events: initial;
+}
+
+.sc2_9 {
+  margin: 0;
+  font: 10.6666666667px 'Roboto Slab', sans-serif;
+  background: #000;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+
+
+.demo-box {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  opacity: 0;
+  font-size: 2rem;
+  font-weight: 300;
+}
+
+.video {
+  opacity: 0;
+  position: absolute;
+  transition: opacity 150ms linear;
+  will-change: opacity;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.video:nth-of-type(2) {
+  min-height: none;
+  min-width: none;
+}
+
+.section.is-expanded .video {
+  opacity: 1;
+  
+}
+
+
+
+
+
+/* 2_6屏 */
+.sc2_6{
+  display: flex;
+  position: relative;
+  background-color: rgb(54, 0, 0);
+  background: linear-gradient(135deg, rgb(34, 33, 33),rgb(48, 20, 20), rgb(34, 33, 33));
+}
+
+.sc2_6 .guessp{
+  position: absolute;
+  font-size: 2rem;
+  font-family: "STZhongsong";
+  color: #baceab;
+}
+
+.box{
+  position: relative;
+  width: 25%;
+}
+
+.cont {
+  width: 20rem;
+  height: 37vh;
+  box-shadow: 0.1rem 0.1rem 1rem rgba(0, 0, 0, 0.1);
+  border-radius: 1em;
+  background: #ECE9E6;
+  background: linear-gradient(to right, #FFFFFF, #ECE9E6);
+  margin: auto;
+  overflow: hidden;
+  filter: blur(10px);
+}
+
+.sc2_6 ul{
+  list-style-image: url(../imgs/list.png);
+  line-height: 1.2rem;
+}
+.sc2_6 li:nth-child(2n){
+  list-style: none;
+}
+
+.mov1{
+  margin-top: 8rem;
+}
+
+.mov1 img{
+  width: 100%;
+  border-radius: 10px 10px 0 0;
+}
+
+.desc1 {
+  position: absolute;
+  top:10rem;
+  left: 2rem;
+  font-size: 1.3rem;
+  max-width: 85%;
+  cursor: pointer;
+}
+
+.mov3{
+  margin-top: 1rem;
+}
+
+.mov3 img{
+  width: 100%;
+  border-radius: 10px 10px 0 0;
+}
+
+.desc3 {
+  position: absolute;
+  top:3rem;
+  left: 2rem;
+  font-size: 1.3rem;
+  max-width: 85%;
+  cursor: pointer;
+  color: #ECE9E6;
+}
+
+.mov2{
+  margin-top: 20rem;
+  height: 25vh;
+}
+
+.mov2 img{
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  border-radius: 0 0 10px 10px ;
+}
+
+.desc2 {
+  position: absolute;
+  top:21rem;
+  left: 2rem;
+  font-size: 1.3rem;
+  max-width: 85%;
+  cursor: pointer;
+  color: #c7c4d4;
+}
+
+.mov4{
+  margin-top: 24rem;
+  height: 27vh;
+}
+
+.mov4 img{
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  border-radius: 0 0 10px 10px ;
+}
+
+.desc4 {
+  position: absolute;
+  top:25rem;
+  left: 2rem;
+  font-size: 1.3rem;
+  max-width: 85%;
+  cursor: pointer;
+  color: #473400;
+}
+
+.nofilter {
+  filter: blur(0);
+  transition: filter 0.5s ease-in;
+}
+
+.cont .intro p {
+  display: none;
+  margin: 0.3rem;
+}
+
+
+
+@media screen and (max-width: 1600px) {
+  html {
+      font-size: 16px;
+  }
+}
+@media screen and (max-width: 1500px) {
+  html {
+      font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  html {
+      font-size: 14px;
+  }
+  #s1video{
+    top: 60px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  html {
+      font-size: 12px;
+  }
+  #s1video{
+    top: 100px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  html {
+      font-size: 10px;
+  }
+  #s1video{
+    top: 130px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  html {
+      font-size: 8px;
+  }
+  #s1video{
+    top: 200px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  html {
+      font-size: 7px;
+  }
+  #s1video{
+    top: 200px;
+  }
+}
+@media screen and (max-width: 600px) {
+  html {
+      font-size: 5px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  html {
+      font-size: 4px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+

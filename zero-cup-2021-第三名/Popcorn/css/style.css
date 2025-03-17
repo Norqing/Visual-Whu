@@ -1,0 +1,365 @@
+canvas {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  text-align: center;
+  background-size: 100% 100%;
+}
+
+#Background {
+  z-index: -5;
+  background-position: center center;
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+}
+
+#Background:focus {
+  display: none;
+}
+
+#camera {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  height: 98.4vh;
+  width: 100vh;
+  border: 0.8vh solid rgba(0, 0, 0, 0.5);
+  background: url(p0.jpg) no-repeat center center;
+  background-size: 100vh;
+  background-clip: padding-box;
+  z-index: -1;
+  margin: 0 auto;
+  padding: 0;
+  border-radius: 50%;
+}
+
+#m1 {
+  cursor: pointer;
+  position: absolute;
+  top: -0.8vh;
+  left: -0.8vh;
+  margin: 0 auto;
+  height: 32.8vh;
+  width: 50vw;
+  border: 0.8vh solid rgba(0, 0, 0, 0.5);
+  background: url(m1.jpg) no-repeat;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -o-background-size: cover;
+  background-clip: padding-box;
+  z-index: -2;
+  margin: 0;
+  padding: 0;
+  transition-property: transform, opacity;
+  transition-duration: 0.6s, 0.6s;
+  opacity: 0.8;
+}
+
+#m2 {
+  cursor: pointer;
+  position: absolute;
+  z-index: -2;
+  top: 32.8vh;
+  left: -0.8vh;
+  height: 32.8vh;
+  width: 50vw;
+  border: 0.8vh solid rgba(0, 0, 0, 0.5);
+  background: url(m2.jpg) no-repeat;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -o-background-size: cover;
+  background-clip: padding-box;
+  margin: 0;
+  padding: 0;
+  transition-property: transform, opacity;
+  transition-duration: 0.6s, 0.6s;
+  opacity: 0.8;
+}
+
+#m3 {
+  cursor: pointer;
+  position: absolute;
+  z-index: -2;
+  top: 66.4vh;
+  left: -0.8vh;
+  height: 32.8vh;
+  width: 50vw;
+  border: 0.8vh solid rgba(0, 0, 0, 0.5);
+  background: url(m3.jpg) no-repeat;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -o-background-size: cover;
+  background-clip: padding-box;
+  margin: 0;
+  padding: 0;
+  transition-property: transform, opacity;
+  transition-duration: 0.6s, 0.6s;
+  opacity: 0.8;
+}
+
+#m4 {
+  cursor: pointer;
+  position: absolute;
+  top: -0.8vh;
+  right: -0.8vh;
+  margin: 0 auto;
+  height: 32.8vh;
+  width: 50vw;
+  border: 0.8vh solid rgba(0, 0, 0, 0.5);
+  background: url(m4.jpg) no-repeat;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -o-background-size: cover;
+  background-clip: padding-box;
+  z-index: -3;
+  margin: 0;
+  padding: 0;
+  transition-property: transform, opacity;
+  transition-duration: 0.6s, 0.6s;
+  opacity: 0.8;
+}
+
+#m5 {
+  cursor: pointer;
+  position: absolute;
+  z-index: -3;
+  top: 32.8vh;
+  right: -0.8vh;
+  height: 32.8vh;
+  width: 50vw;
+  border: 0.8vh solid rgba(0, 0, 0, 0.5);
+  background: url(m5.jpg) no-repeat;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -o-background-size: cover;
+  background-clip: padding-box;
+  margin: 0;
+  padding: 0;
+  transition-property: transform, opacity;
+  transition-duration: 0.6s, 0.6s;
+  opacity: 0.8;
+}
+
+#m6 {
+  cursor: pointer;
+  position: absolute;
+  z-index: -3;
+  top: 66.4vh;
+  right: -0.8vh;
+  height: 32.8vh;
+  width: 50vw;
+  border: 0.8vh solid rgba(0, 0, 0, 0.5);
+  background: url(m6.jpg) no-repeat;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -o-background-size: cover;
+  background-clip: padding-box;
+  margin: 0;
+  padding: 0;
+  transition-property: transform, opacity;
+  transition-duration: 0.6s, 0.6s;
+  opacity: 0.8;
+}
+
+#m1:hover {
+  transform: scale(1.05, 1.05);
+  opacity: 1;
+}
+
+#m2:hover {
+  transform: scale(1.05, 1.05);
+  opacity: 1;
+}
+
+#m3:hover {
+  transform: scale(1.05, 1.05);
+  opacity: 1;
+}
+
+#m4:hover {
+  transform: scale(1.05, 1.05);
+  opacity: 1;
+}
+
+#m5:hover {
+  transform: scale(1.05, 1.05);
+  opacity: 1;
+}
+
+#m6:hover {
+  transform: scale(1.1, 1.1);
+  opacity: 1;
+}
+
+#p1 {
+  z-index: 3;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  height: 100vh;
+  width: 100vh;
+  border: 1vh solid rgba(0, 0, 0, 0.5);
+  background: url(p1.jpg) no-repeat center center;
+  background-size: 100vh;
+  background-clip: padding-box;
+  margin: 0 auto;
+  padding: 0;
+  border-radius: 50%;
+}
+
+#p2 {
+  z-index: 3;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  height: 100vh;
+  width: 100vh;
+  border: 1vh solid rgba(0, 0, 0, 0.5);
+  background: url(p2.jpg) no-repeat center center;
+  background-size: 100vh;
+  background-clip: padding-box;
+  margin: 0 auto;
+  padding: 0;
+  border-radius: 50%;
+}
+
+#p3 {
+  z-index: 3;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  height: 100vh;
+  width: 100vh;
+  border: 1vh solid rgba(0, 0, 0, 0.5);
+  background: url(p3.jpg) no-repeat center center;
+  background-size: 100vh;
+  background-clip: padding-box;
+  margin: 0 auto;
+  padding: 0;
+  border-radius: 50%;
+}
+
+#p4 {
+  z-index: 3;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  height: 100vh;
+  width: 100vh;
+  border: 1vh solid rgba(0, 0, 0, 0.5);
+  background: url(p4.jpg) no-repeat center center;
+  background-clip: padding-box;
+  background-size: 100vh;
+  margin: 0 auto;
+  padding: 0;
+  border-radius: 50%;
+}
+
+#p5 {
+  z-index: 3;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  height: 100vh;
+  width: 100vh;
+  border: 1vh solid rgba(0, 0, 0, 0.5);
+  background: url(p5.jpg) no-repeat center center;
+  background-size: 100vh;
+  background-clip: padding-box;
+  margin: 0 auto;
+  padding: 0;
+  border-radius: 50%;
+}
+
+#p6 {
+  z-index: 3;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  height: 100vh;
+  width: 100vh;
+  border: 1vh solid rgba(0, 0, 0, 0.5);
+  background: url(p6.jpg) no-repeat center center;
+  background-size: 100vh;
+  background-clip: padding-box;
+  margin: 0 auto;
+  padding: 0;
+  border-radius: 50%;
+}
+
+.flap {
+  z-index: 200;
+  width: 150vmax;
+  height: 150vmax;
+  position: absolute;
+  bottom: 50%;
+  right: 50%;
+  pointer-events: none;
+  will-change: transform;
+  background: hsl(calc(1turn * var(--p)), 80%, 80%);
+  background: linear-gradient(35deg, #555, black);
+  border: solid 4px #999;
+  --p: calc(var(--i) / var(--flaps));
+  -webkit-animation: click 2s cubic-bezier(0.5, 0, 0.5, 1) 0.1s;
+  animation: click 2s cubic-bezier(0.5, 0, 0.5, 1) 0.1s;
+  transform-origin: bottom right;
+  transform: rotate(-0.5turn) rotate(calc(1turn * var(--p))) skewX(30deg)
+    translateX(-100%) translateY(90%);
+}
+
+@-webkit-keyframes click {
+  48%,
+  52% {
+    transform: rotate(-0.25turn) rotate(calc(1turn * var(--p))) skewX(30deg)
+      translateX(0%) translateY(0%);
+  }
+}
+
+@keyframes click {
+  48%,
+  52% {
+    transform: rotate(-0.25turn) rotate(calc(1turn * var(--p))) skewX(30deg)
+      translateX(0%) translateY(0%);
+  }
+}

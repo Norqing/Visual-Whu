@@ -1,0 +1,196 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-11-04 21:15:27
+ * @LastEditTime: 2021-11-14 14:34:28
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \Zero-Cup-2021\index.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/index.css" />
+  <link rel="icon" href="imgs/15film.png" type="image/x=ico">
+  <title>电影艺术</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="sc1">
+      <p class="vidtitle">《火车进站》
+      <p class="vidsubtitle">*点击放映机播放/暂停*</p>
+      </p>
+      <video src="videos/202111041346.mp4" id="s1video" muted loop autoplay playsinline></video>
+      <div class="player">
+        <img src="imgs/player.png" id="player" onclick="playpause()">
+      </div>
+      <p class="vidintro">
+        1895年，电影的发明者卢米埃尔兄弟利用“活动摄影机”拍摄了世界上第一批电影。我们司空见惯的光影，在那时尚为难以理解的高科技。<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp影片《火车进站》中，火车头冲着镜头呼啸而过，当时的观众看了大吃一惊，十分恐慌，以为真的火车迎面而来，吓得惊慌四散。
+      </p>
+    </div>
+
+    <div class="sc2">
+      <video src="videos/Av9289176.mp4" id="s2video" muted loop autoplay playsinline></video>
+      <div class="runbox">
+        <div class="card1">
+          <div class="circle"></div>
+          <div class="content">
+            <h2>技术革新</h2>
+            <p>从世界第一部电影的出现到今天，在电影蓬勃发展的这一百多年中，电影技术不断革新，其目标都是为了让电影画面无限地接近现实世界和内心世界。</p>
+            <a href="index1/index1.html">了解更多</a>
+          </div>
+          <img src="imgs/电影打板器.png" alt="img">
+        </div>
+        <div class="card2">
+          <div class="circle"></div>
+          <div class="content">
+            <h2>流派发展</h2>
+            <p>电影从一块露天的幕布变成室内的光影盛宴，从写实记录变成所谓“第七艺术”。电影一直在向前，不同的流派涌现在历史舞台，探寻艺术的各种可能性。</p>
+            <a href="index2/index2.html">了解更多</a>
+          </div>
+          <img src="imgs/电影胶卷.png" alt="img">
+        </div>
+      </div>
+      <div class="light">
+        <h1 data-char="电影艺术">电影艺术</h1>
+      </div>
+    </div>
+
+    <div class="sc2_3">
+      <div class="comparison" style="--slide: 500">
+        <input type="range" min="1" max="1000" value="500" class="slider"
+          oninput="this.parentNode.style.setProperty('--slide', `${this.value}`)">
+      </div>
+    </div>
+
+    <div class="sc2_6">
+      <p class="guessp">“猜猜我是哪部影史经典”</p>
+      <div class="box">
+        <div class="cont mov1">
+          <div class="intro">
+            <img src="imgs/wings.jpg" alt="poster">
+            <p>
+              <i><b>《翼》(1927)</b></i><br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp以空军、男人的友谊与默契、四角恋为主题讲述了一个一战时期美国小镇的故事。场面宏大，空战特效在其年代显得出人意料，男女之情与战争之残酷交织，摄影流畅明丽，细节动人。战争的残酷、友谊的纯真、爱情的美好被完美结合和呈现。
+            </p>
+          </div>
+        </div>
+        <div class="desc1">
+          <ul>
+            <li>第一届奥斯卡最佳影片</li>
+            <li>&nbsp</li>
+            <li>也是获得奥斯卡的唯一默片</li>
+            <li>&nbsp</li>
+            <li>以反战、友谊为主题</li>
+            <li>&nbsp</li>
+            <li>空战场面非常壮观</li>
+          </ul>
+        </div>
+      </div>
+      <div class="box">
+        <div class="cont mov2">
+          <div class="intro">
+            <img src="imgs/farewell.jpg" alt="poster">
+            <p>
+              <i><b>《霸王别姬》(1993)</b></i><br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp影片围绕两位京剧伶人半个世纪的悲欢离合，展现了对传统文化、人的生存状态及人性的思考与领悟。<br>
+              &nbsp&nbsp&nbsp&nbsp&nbsp段小楼与程蝶衣是一对打小一起长大的师兄弟，两人一个演生，一个饰旦。两人约定合演一辈子《霸王别姬》。但两人对戏剧与人生关系的理解有本质不同，段小楼深知戏非人生，程蝶衣则是人戏不分，“不疯魔不成活”。<br>
+              &nbsp&nbsp&nbsp&nbsp&nbsp两人的不同人生观在时代洪流中指向不同的路程，分道扬镳，最后风波平静后似乎有和好的迹象，但最终是悲剧结尾。<br>
+              &nbsp&nbsp&nbsp&nbsp&nbsp这是个人之悲、艺术之悲、爱之悲。
+            </p>
+          </div>
+        </div>
+        <div class="desc2">
+          <ul>
+            <li>首部获戛纳金棕榈的中国影片</li>
+            <li>&nbsp</li>
+            <li>张国荣、张丰毅、巩俐</li>
+            <li>&nbsp</li>
+            <li>“风华绝代”</li>
+          </ul>
+        </div>
+      </div>
+      <div class="box">
+        <div class="cont mov3">
+          <div class="intro">
+            <img src="imgs/chongking.jpg" alt="poster">
+            <p>
+              <i><b>《重庆森林》(1994)</b></i><br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp影片由两段故事组成：编号为223的警察患上失恋综合症后，与金发女杀手擦肩而过又离奇相遇。快餐店新来的女招待爱上了编号为663的警察，时常偷偷潜入他家，悄悄地改变他的生活。<br>
+              &nbsp&nbsp&nbsp&nbsp&nbsp在这部片子里，抽帧的画面、无厘头而有趣的比喻、冷峻的台词、复古调色等特质把王家卫的迷幻风格表现得淋漓尽致，被无数文艺青年当作心目中的文艺片之首。
+            </p>
+          </div>
+        </div>
+        <div class="desc3">
+          <ul>
+            <li>梦中人</li>
+            <li>&nbsp</li>
+            <li>凤梨罐头</li>
+            <li>&nbsp</li>
+            <li>王家卫经典之作</li>
+            <li>&nbsp</li>
+            <li>王菲 金城武 梁朝伟 林青霞</li>
+          </ul>
+        </div>
+      </div>
+      <div class="box">
+        <div class="cont mov4">
+          <div class="intro">
+            <img src="imgs/interstellar.jpg" alt="poster">
+            <p>
+              <i><b>《星际穿越》(2014)</b></i><br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp近未来的地球农作物因枯萎病灭绝，人类每日在沙尘暴的肆虐下倒数着所剩不多的光景，在家务农的前NASA宇航员库珀狠心离开女儿踏上寻找新星球拯救人类的路程。在遥远的星系，有的星球上一小时等于地球的七年光阴，沧海桑田；有不知吉凶的前任探索者的驻地；有黑洞的壮伟与神秘，在最后关头，有一份超越了时空的笃定情怀将库珀、女儿、人类紧紧相连。<br>
+              &nbsp&nbsp&nbsp&nbsp&nbsp诺兰尽其所能拍出了触手可及的科幻，硬核又充满人性，温情又隐含黑暗面，让人潸然泪下。
+            </p>
+          </div>
+        </div>
+        <div class="desc4">
+          <ul>
+            <li>诺兰最广受赞誉的科幻片</li>
+            <li>&nbsp</li>
+            <li>爱、死亡与宇宙</li>
+            <li>&nbsp</li>
+            <li>一场拯救人类的计划</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div class="sc2_9">
+      <section class="section">
+        <video src="videos/1.mp4" class="video" loop controls></video>
+        <div class="close-section">&times;</div>
+        <div class="demo-box">4D</div>
+      </section>
+      <section class="section">
+        <video src="videos/2.mp4" class="video" loop controls></video>
+        <div class="close-section">&times;</div>
+        <div class="demo-box">VR虚拟现实</div>
+      </section>
+      <section class="section">
+        <video src="videos/3.mp4" class="video" loop controls></video>
+        <div class="close-section">&times;</div>
+        <div class="demo-box">游戏&电影</div>
+      </section>
+      <section class="section">
+        <video src="videos/4.mp4" class="video" loop controls></video>
+        <div class="close-section">&times;</div>
+        <div class="demo-box">沉浸式体验</div>
+      </section>
+    </div>
+
+    <div class="sc3">
+      <div class="background"><span>特效</span></div>
+      <div class="last">
+        <div class="letter1">是电影的艺术</div>
+        <div class="letter2">而电影</div>
+        <div class="letter3">是生活的艺术</div>
+      </div>
+    </div>
+  </div>
+  <script src="js/jquery.js"></script>
+  <script src="js/index.js"></script>
+
+</body>
+
+</html>
