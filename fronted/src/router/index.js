@@ -13,8 +13,19 @@ const routes = [
       },
       {
         path: "map",
-        name: "map",
-        component: () => import("../pages/MapPage.vue"),
+        redirect: "map/policy", // 禁止直接访问/map
+        children: [
+          {
+            path: "policy",
+            name: "国家政策",
+            component: () => import("../pages/MapPage1.vue"),
+          },
+          {
+            path: "local", 
+            name: "地方政策",
+            component: () => import("../pages/MapPage2.vue"),
+          }
+        ]
       },
       {
         path: "data",

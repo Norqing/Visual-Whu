@@ -5,7 +5,16 @@
         <q-btn flat dense round icon="menu" @click="toggleLeftDrawer" />
         <q-toolbar-title>非遗文化展示</q-toolbar-title>
         <q-btn flat label="首页" to="/" />
-        <q-btn flat label="文化地图" to="/map" />
+        <q-btn-dropdown flat label="文化地图" stretch>
+          <q-list>
+            <q-item clickable v-close-popup to="/map/policy">
+              <q-item-section>国家政策</q-item-section>
+            </q-item>
+            <q-item clickable v-close-popup to="/map/local">
+              <q-item-section>地方政策</q-item-section>
+            </q-item>
+          </q-list>
+        </q-btn-dropdown>
         <q-btn flat label="数据分析" to="/data" />
       </q-toolbar>
     </q-header>
@@ -16,9 +25,14 @@
         <q-item clickable to="/">
           <q-item-section>首页</q-item-section>
         </q-item>
-        <q-item clickable to="/map">
-          <q-item-section>文化地图</q-item-section>
-        </q-item>
+        <q-expansion-item label="文化地图">
+          <q-item clickable to="/map/policy">
+            <q-item-section>国家政策</q-item-section>
+          </q-item>
+          <q-item clickable to="/map/local">
+            <q-item-section>地方政策</q-item-section>
+          </q-item>
+        </q-expansion-item>
         <q-item clickable to="/data">
           <q-item-section>数据分析</q-item-section>
         </q-item>

@@ -1,5 +1,21 @@
 <template>
   <q-page class="q-pa-md policy-page">
+    <!-- 新增按钮导航区域 -->
+    <div class="nav-buttons">
+      <q-btn 
+        class="nav-btn"
+        label="非遗政策地图" 
+        @click="switchSite('map')"
+        :class="{ active: currentSite === 'map' }"
+      />
+      <q-btn 
+        class="nav-btn"
+        label="非遗文化地图"
+        @click="switchSite('map2')" 
+        :class="{ active: currentSite === 'map2' }"
+      />
+    </div>
+
     <!-- 左上角标题区域 -->
     <div class="title-area">
       <h1 class="title-text">国家非遗政策</h1>
@@ -20,7 +36,7 @@
         <div class="textbox" 
              :title="item"
              @click="onTextClick(index)">
-          {{ item.length > 20 ? item.substring(0, 20) + '...' : item }}
+          {{ item }}  <!-- 直接显示完整内容，不再截断 -->
         </div>
         <div class="line"></div>
       </div>
@@ -48,6 +64,15 @@
         {{ currentDetail }}
       </div>
     </div>
+    
+    <!-- 在合适位置添加路由视图 -->
+    <!-- 在template中添加 -->
+    <div class="map-view-container">
+      <router-view></router-view>
+    </div>
+    
+
+    
   </q-page>
 </template>
 
@@ -146,6 +171,21 @@ const onTextClick = async (index) => {
     currentDetail.value = '加载详情失败'
   }
 }
+
+// 添加网站状态管理
+const currentSite = ref('map')
+
+import { useRouter } from 'vue-router'
+const router = useRouter()
+
+const switchSite = (site) => {
+  currentSite.value = site
+  if(site === 'map') {
+    router.push('/map/policy') // 确保路径正确
+  } else {
+    router.push('/map/local') // 确保路径正确
+  }
+}
 </script>
 
 <style scoped>
@@ -161,14 +201,41 @@ const onTextClick = async (index) => {
   background-attachment: scroll; /* 允许滚动 */
 }
 
-.title-area {
+
+  /* 这里可以添加具体的样式规则 */
+  /* 例如：body { background-color: #f0f0f0; } */
+/* 修改导航按钮样式 */
+.nav-buttons {
   position: absolute;
-  top: 1vh;
+  top: 2vh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;  
+  gap: 25vw; /* 增大按钮间距 */
+  z-index: 100;
+}
+
+.nav-btn {
+  padding: 10px 30px; /* 增大按钮尺寸 */
+  background-color: rgba(255, 255, 255, 0.342) !important; /* 强制白色背景 */
+  border-radius: 4px;
+  font-family: "SimSun", serif;
+  font-size: 1.2vw;
+  color: #333 !important; /* 深色文字 */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* 添加阴影 */
+}
+
+
+
+/* 调整标题区域位置 */
+.title-area {
+  top: 12vh; /* 从原来的1vh调整为12vh */
   left: 6.6vw;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
+
 
 .title-text {
   font-family: "SimSun", serif;
@@ -226,13 +293,13 @@ const onTextClick = async (index) => {
   justify-content: center;
   padding: 0 1vw;
   margin-right: 0.5vw;
-  font-size: 1vw;
-  font-family: "SimSun", serif; /* 添加宋体 */
-  font-weight: bold; /* 加粗 */
+  font-size: 0.9vw; /* 从1vw减小到0.9vw */
+  font-family: "SimSun", serif;
+  font-weight: bold;
   white-space: normal;
-  word-break: break-word;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  word-break: break-all;
+  overflow: visible;
+  text-overflow: clip;
   text-align: center;
   transition: color 0.3s ease;
 }
@@ -284,9 +351,9 @@ const onTextClick = async (index) => {
 
 .detail-container {
   position: absolute;
-  right: 2vw;
+  right: 5vw;
   top: 15vh;
-  width: 45vw; /* 从60vw减少到45vw (降低1/4) */
+  width: 40vw; /* 从60vw减少到45vw (降低1/4) */
   height: 80vh;
   background: rgba(255, 255, 255, 0.105); /* 透明度调整为0.7 */
   border-radius: 8px;
