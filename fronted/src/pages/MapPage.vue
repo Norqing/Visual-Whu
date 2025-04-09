@@ -8,7 +8,8 @@
     
     <!-- 左侧文本框区域 -->
     <div class="textbox-container">
-      <div v-for="(item, index) in textItems" :key="index" 
+      <!-- 修改v-for循环，显示当前页数据 -->
+      <div v-for="(item, index) in currentPageItems" :key="index" 
            class="textbox-item" 
            :style="{
              ...getTextboxStyle(index + 1),
@@ -16,61 +17,135 @@
              transform: showText ? 'translateX(0)' : 'translateX(20px)',
              transition: `opacity 0.5s ease ${index * 0.1}s, transform 0.5s ease ${index * 0.1}s`
            }">
-        <div class="textbox" :title="item">{{ item.length > 20 ? item.substring(0, 20) + '...' : item }}</div>
+        <div class="textbox" 
+             :title="item"
+             @click="onTextClick(index)">
+          {{ item.length > 20 ? item.substring(0, 20) + '...' : item }}
+        </div>
         <div class="line"></div>
+      </div>
+    </div>
+
+    <!-- 添加分页按钮 -->
+    <div class="pagination">
+      <q-btn 
+        v-if="hasPrevPage"
+        @click="prevPage"
+        label="上一页"
+        class="page-btn"
+      />
+      <q-btn 
+        v-if="hasNextPage"
+        @click="nextPage"
+        label="下一页"
+        class="page-btn"
+      />
+    </div>
+    
+    <!-- 添加右侧详情区域 -->
+    <div class="detail-container">
+      <div class="detail-content">
+        {{ currentDetail }}
       </div>
     </div>
   </q-page>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 
-const textItems = ref(Array(9).fill('加载中...'))
-const showText = ref(false) // 新增显示状态
+const textItems = ref([])
+const showText = ref(false)
+const currentPage = ref(1)
+const totalPages = ref(1)
+const isLoading = ref(false)
 
-onMounted(async () => {
-  showText.value = false // 初始隐藏
+const fetchPolicyData = async (page = 1) => {
+  isLoading.value = true
+  showText.value = false
+  
   try {
-    const response = await fetch('http://localhost:8000/api/policy-content')
-    if (!response.ok) throw new Error('网络响应不正常')
-    const data = await response.json()
+    const response = await fetch(`http://localhost:8000/api/policy-content-paginated?page=${page}`)
+    const { items, total } = await response.json()
     
-    const items = Array(9).fill('')
-    data.forEach(item => {
-      const index = item.id - 1
-      if(index >= 0 && index < 9) {
-        items[index] = item.content || '无内容'
-      }
-    })
-    textItems.value = items
-    setTimeout(() => {
-      showText.value = true // 数据加载完成后显示
-    }, 100)
+    textItems.value = items.map(item => item.content)
+    totalPages.value = Math.ceil(total / 9)
+    setTimeout(() => showText.value = true, 300)
   } catch (error) {
     console.error('获取政策内容失败:', error)
-    textItems.value = Array(9).fill('数据加载失败')
+    textItems.value = ['数据加载失败']
+  } finally {
+    isLoading.value = false
   }
-})
+}
+
+onMounted(() => fetchPolicyData())
 
 const getTextboxStyle = (i) => {
   // 只保留奇数编号的位置数据
   const positions = [
-    { top: 6, left: 4.5 },    // 1
-    { top: 15, left: 0 },     // 3
-    { top: 24, left: -8.5 },    // 5
-    { top: 33, left: -12 },      // 7
-    { top: 42, left: -13 },     // 9
-    { top: 51, left: -12 },    // 11
-    { top: 60, left: -8.5},    // 13
-    { top: 69, left: -3.5 },    // 15
-    { top: 78, left: -0.5 }    // 17
+    { top: 6, left:18 },    // 1
+    { top: 15, left: 13.5 },     // 3
+    { top: 24, left: 3.5 },    // 5
+    { top: 33, left: 1 },      // 7
+    { top: 42, left: 0.3 },     // 9
+    { top: 51, left: 2.5 },    // 11
+    { top: 60, left: 6.5},    // 13
+    { top: 69, left: 11.5 },    // 15
+    { top: 78, left: 13 }    // 17
   ];
   return {
     top: `${positions[i-1].top}vh`,
     left: `${positions[i-1].left}vw`
   };
 };
+
+
+
+const currentPageItems = computed(() => textItems.value)
+
+const hasNextPage = computed(() => currentPage.value < totalPages.value)
+const hasPrevPage = computed(() => currentPage.value > 1)
+
+const nextPage = () => {
+  if(hasNextPage.value) {
+    showText.value = false
+    setTimeout(() => {
+      currentPage.value++
+      setTimeout(() => {
+        fetchPolicyData(currentPage.value)
+        setTimeout(() => showText.value = true, 300) // 增加额外延迟
+      }, 200) // 页面切换后延迟
+    }, 800) // 淡出动画时间
+  }
+}
+
+const prevPage = () => {
+  if(hasPrevPage.value) {
+    showText.value = false
+    setTimeout(() => {
+      currentPage.value--
+      setTimeout(() => {
+        fetchPolicyData(currentPage.value)
+        setTimeout(() => showText.value = true, 300)
+      }, 200)
+    }, 800)
+  }
+}
+
+const currentDetail = ref('请点击左侧政策查看详情')
+
+const onTextClick = async (index) => {
+  try {
+    const response = await fetch(`http://localhost:8000/api/policy-content-by-id?id=${index + 1 + (currentPage.value - 1) * 9}`)
+    const data = await response.json()
+    currentDetail.value = data.body || '暂无详细内容'
+    console.log('获取到的内容:', data.body) // 调试用
+  } catch (error) {
+    console.error('获取详情失败:', error)
+    currentDetail.value = '加载详情失败'
+  }
+}
 </script>
 
 <style scoped>
@@ -125,8 +200,22 @@ const getTextboxStyle = (i) => {
   align-items: flex-end;
   margin-bottom: 2vh;
   will-change: transform, opacity; /* 优化动画性能 */
+  transition: 
+    opacity 0.8s ease-out,  /* 使用ease-out使动画更平滑 */
+    transform 0.8s ease-out;
+  will-change: transform, opacity;
 }
 
+/* 保留原有的延迟设置 */
+.textbox-item:nth-child(1) { transition-delay: 0s; }
+.textbox-item:nth-child(2) { transition-delay: 0.15s; }
+.textbox-item:nth-child(3) { transition-delay: 0.3s; }
+.textbox-item:nth-child(4) { transition-delay: 0.45s; }
+.textbox-item:nth-child(5) { transition-delay: 0.6s; }
+.textbox-item:nth-child(6) { transition-delay: 0.75s; }
+.textbox-item:nth-child(7) { transition-delay: 0.9s; }
+.textbox-item:nth-child(8) { transition-delay: 1.05s; }
+.textbox-item:nth-child(9) { transition-delay: 1.2s; }
 .textbox {
   width: 20vw;
   min-height: 3vh;
@@ -137,13 +226,15 @@ const getTextboxStyle = (i) => {
   justify-content: center;
   padding: 0 1vw;
   margin-right: 0.5vw;
-  font-size: 0.8vw;
+  font-size: 1vw;
+  font-family: "SimSun", serif; /* 添加宋体 */
+  font-weight: bold; /* 加粗 */
   white-space: normal;
   word-break: break-word;
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: center;
-  transition: color 0.3s ease; /* 只对颜色变化添加过渡 */
+  transition: color 0.3s ease;
 }
 
 .textbox:hover {
@@ -173,5 +264,42 @@ const getTextboxStyle = (i) => {
   background-image: url('/map_images/国家级非遗政策牵引点.png');
   background-size: contain;
   background-repeat: no-repeat;
+}
+
+.pagination {
+  position: absolute;
+  bottom: 5vh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+}
+
+.page-btn {
+  padding: 8px 16px;
+  background-color: rgba(255,255,255,0.7);
+  border-radius: 4px;
+}
+
+
+.detail-container {
+  position: absolute;
+  right: 2vw;
+  top: 15vh;
+  width: 45vw; /* 从60vw减少到45vw (降低1/4) */
+  height: 80vh;
+  background: rgba(255, 255, 255, 0.105); /* 透明度调整为0.7 */
+  border-radius: 8px;
+  padding: 20px;
+  overflow-y: auto;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.detail-content {
+  font-family: "SimSun", serif;
+  font-size: 1vw; /* 从1.2vw减小到1vw */
+  line-height: 1.6;
+  white-space: pre-wrap;
+  color: #333;
 }
 </style>

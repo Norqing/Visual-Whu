@@ -17,13 +17,13 @@ app.add_middleware(
 
 # 路由导入
 from app.api import heritage_items
-from app.api.endpoints import policy
+from app import policyapp
 
 # 注册路由
 app.include_router(heritage_items.router, prefix="/api/heritage", tags=["heritage"])
 
 app.include_router(
-    policy.router,
+    policyapp.router,
     prefix="/api",
     tags=["policy"]
 )

@@ -75,3 +75,17 @@ class HeritageItemResponse(HeritageItemBase):
 
     class Config:
         orm_mode = True
+
+
+# 在文件末尾添加
+class PolicyItemBase(BaseModel):
+    content: str
+
+class PolicyItemCreate(PolicyItemBase):
+    pass
+
+class PolicyItemResponse(PolicyItemBase):
+    id: int
+    
+    class Config:
+        orm_mode = True

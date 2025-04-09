@@ -54,8 +54,7 @@ onMounted(() => {
   width: 100%;
   height: 100%;
   z-index: -1;
-  background: url('/map_images/总背景底图.png') no-repeat center center;
-  background-size: cover;
+  background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
   animation: bgMove 15s infinite ease-in-out;
 }
 .content {
