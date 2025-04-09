@@ -30,9 +30,9 @@ const routes = [
     ]
   },
   {
-    path: 'map2',
-    name: 'Map2', 
-    component: () => import('components/Map2.vue'), // 地图2组件
+    path: '/map2',
+    component: () => import('pages/MapPage2.vue'),
+    name: 'Map2',
     meta: { title: '非遗文化地图' }
   }
 ];

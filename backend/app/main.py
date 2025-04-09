@@ -18,6 +18,7 @@ app.add_middleware(
 # 路由导入
 from app.api import heritage_items
 from app import policyapp
+from app import map  # 添加这行
 
 # 注册路由
 app.include_router(heritage_items.router, prefix="/api/heritage", tags=["heritage"])
@@ -26,6 +27,13 @@ app.include_router(
     policyapp.router,
     prefix="/api",
     tags=["policy"]
+)
+
+# 在路由注册部分添加
+app.include_router(
+    map.router,
+    prefix="/api",
+    tags=["map"]
 )
 
 # 挂载静态文件目录
