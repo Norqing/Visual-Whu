@@ -4,13 +4,13 @@
     <div class="nav-buttons">
       <q-btn 
         class="nav-btn"
-        label="非遗政策地图" 
+        label="国家非遗政策" 
         @click="switchSite('map')"
         :class="{ active: currentSite === 'map' }"
       />
       <q-btn 
         class="nav-btn"
-        label="非遗文化地图"
+        label="地方非遗政策"
         @click="switchSite('map2')" 
         :class="{ active: currentSite === 'map2' }"
       />
@@ -240,7 +240,7 @@ const switchSite = (site) => {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  z-index: 10;
+
 }
 
 
@@ -254,12 +254,17 @@ const switchSite = (site) => {
   margin-bottom:-2vh ;
 }
 
+/* 标题装饰图标样式 */
 .title-decoration {
   width: 15vw;
   height: auto;
   margin-left: -0.5vw;
   margin-top: -2.5vh;
+
 }
+
+/* 牵引点图标样式 */
+
 
 .textbox-container {
   position: absolute;
@@ -335,7 +340,7 @@ const switchSite = (site) => {
   transform: translateY(-50%);
   width: 0.8vw;
   height: 0.8vw;
-  background-image: url('/map_images/国家级非遗文化牵引点.png');
+  background-image: url('/map_images/国家级非遗政策牵引点.png');
   background-size: contain;
   background-repeat: no-repeat;
 }
@@ -362,14 +367,14 @@ const switchSite = (site) => {
   top: 10vh;
   width: 44vw; /* 从40vw增加到48vw */
   height: 86vh; /* 从80vh增加到86vh */
-  z-index: 1;
+
 } 
 
 .detail-image-container {
   position: absolute;
   width: 100%;
   height: 100%;
-  z-index: 4;
+
 }
 
 .detail-image {
@@ -384,9 +389,9 @@ const switchSite = (site) => {
   width: 35vw;
   height: 70vh;
   left: 4vw;
-  top: 12vh;
+  top: 12vh;  
   background: transparent;
-  z-index: 5;
+
   padding: 20px;
   overflow-y: auto;
   /* 新增滚动条样式 */

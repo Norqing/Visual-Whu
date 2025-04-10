@@ -4,13 +4,13 @@
     <div class="nav-buttons">
       <q-btn 
         class="nav-btn"
-        label="非遗政策地图" 
+        label="国家非遗政策" 
         @click="switchSite('map')"
         :class="{ active: currentSite === 'map' }"
       />
       <q-btn 
         class="nav-btn"
-        label="非遗文化地图"
+        label="地方非遗政策"
         @click="switchSite('map2')" 
         :class="{ active: currentSite === 'map2' }"
       />
@@ -24,14 +24,19 @@
     
     <!-- 文本框区域 -->
     <div class="textbox-container">
-      <div v-for="(item, index) in textItems" :key="index" 
-           class="textbox-item" 
-           :style="getTextboxStyle(index + 1)">
-        <div class="textbox" @click="onTextClick(index)">
-          {{ item }}
+      <template v-for="(item, index) in textItems" :key="index">
+        <div class="textbox-item" :style="getTextboxStyle(index+1)">
+          <img 
+            :src="`/map_images/${item.icon}`" 
+            class="policy-icon"
+            alt="政策图标"
+          />
+          <div class="textbox" @click="onTextClick(index)">
+            {{ item.text }}
+          </div>
+          <div class="line"></div>
         </div>
-        <div class="line"></div>
-      </div>
+      </template>
     </div>
 
     <!-- 地图容器 -->
@@ -52,16 +57,18 @@ const currentSite = ref('map2');
 
 // 文本框数据
 const textItems = ref([
-  '地方政策示例1',
-  '地方政策示例2',
-  // 添加更多示例...
+  { text: '地方政策1', icon: '地方级政策前缀修饰1.png' },
+  { text: '地方政策2', icon: '地方级政策前缀修饰2.png' },
+  { text: '地方政策3', icon: '地方级政策前缀修饰3.png' },
+  { text: '地方政策4', icon: '地方级政策前缀修饰4.png' }
 ]);
 
 const getTextboxStyle = (i) => {
   const positions = [
-    { top: 6, left:18 },
-    { top: 15, left: 13.5 },
-    // 添加更多位置...
+    { top: 15, left: 4 },   // 第一列位置
+    { top: 15, left: 10 },   // 第二列位置
+    { top: 15, left: 16 },  // 第三列位置
+    { top: 15, left: 22 }   // 第四列位置
   ];
   return {
     top: `${positions[i-1].top}vh`,
@@ -281,8 +288,8 @@ onMounted(() => {
 /* 文本框区域样式 */
 .textbox-container {
   position: absolute;
-  left: 2vw;
-  width: 20vw;
+  left: 1vw;  /* 更靠近左侧 */
+  width: 25vw;  /* 缩小宽度 */
   top: 10vh;
   z-index: 5;
 }
@@ -290,57 +297,40 @@ onMounted(() => {
 .textbox-item {
   position: absolute;
   display: flex;
-  align-items: flex-end;
-  margin-bottom: 2vh;
-  will-change: transform, opacity;
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  flex-direction: column;
+  align-items: flex-start;  /* 左对齐 */
 }
 
 .textbox {
-  width: 20vw;
-  min-height: 3vh;
-  background-color: transparent;
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 1vw;
-  margin-right: 0.5vw;
-  font-size: 0.9vw;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  width: auto;
+  min-height: 15vh;
+  padding: 1vh 0;
+  margin-left: 0;
   font-family: "SimSun", serif;
+  font-size: 1vw;
   font-weight: bold;
-  white-space: normal;
-  word-break: break-all;
-  text-align: center;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease; /* 添加过渡效果 */
 }
 
 .textbox:hover {
-  color: #ff6b6b;
-  cursor: pointer;
+  color: #ff6b6b; /* 文字颜色变红 */
+  text-shadow: 0 0 5px rgba(255, 107, 107, 0.5); /* 添加文字阴影效果 */
+  transform: scale(1.05); /* 轻微放大 */
+  cursor: pointer; /* 鼠标指针变为手型 */
 }
 
 .line {
-  width: 6vw;
-  height: 0.05vh;
-  background-color: #000;
-  margin-left: 0.5vw;
-  margin-bottom: 1.5vh;
-  position: relative;
+  width: 0.05vh;
+  height: 6vw;
+  margin-left: 0;  /* 去除左边距 */
 }
 
 .line::after {
-  content: '';
-  display: block;
-  position: absolute;
-  right: -1vw;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 0.8vw;
-  height: 0.8vw;
-  background-image: url('/map_images/国家级非遗政策牵引点.png');
-  background-size: contain;
-  background-repeat: no-repeat;
+  right: 50%;
+  top: 100%;
+  transform: translateX(50%);
 }
 
 /* 分页按钮样式 */
@@ -403,6 +393,13 @@ onMounted(() => {
   bottom: 10vh; /* 恢复到底部5vh位置 */
   pointer-events: none;
   z-index: 1;
+}
+
+.policy-icon {
+  width: 1.5vw;  /* 从3vw减小到2vw */
+  height: 1.5vw; /* 从3vw减小到2vw */
+  margin-bottom: 1vh;
+  object-fit: contain;
 }
 </style>
 
