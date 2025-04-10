@@ -390,8 +390,8 @@ const switchSite = (site) => {
   padding: 20px;
   overflow-y: auto;
   /* 新增滚动条样式 */
-  scrollbar-width: middle;
-  scrollbar-color: rgba(65, 58, 58, 0.785) transparent;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.3) transparent;
 }
 
 .detail-container::-webkit-scrollbar {

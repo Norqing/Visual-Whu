@@ -18,7 +18,7 @@
 
     <!-- 标题区域 -->
     <div class="title-area">
-      <h1 class="title-text">地方级非遗政策</h1>
+      <h1 class="title-text">地方非遗政策</h1>
       <img src="\map_images\标题修饰.png" alt="标题修饰" class="title-decoration">
     </div>
     
@@ -109,9 +109,9 @@ onMounted(() => {
         map: 'ChinaBoundary',
         roam: false,
         silent: true,
-        layoutCenter: ['50%', '70%'],
+        layoutCenter: ['50%', '75%'],
         layoutSize: '120%',
-        zoom: 1.1,
+        zoom: 1,
         zIndex: 2, // 确保在顶层
    
         itemStyle: {
@@ -179,15 +179,15 @@ onMounted(() => {
             areaColor: 'rgb(233,213,181)'  // 点击时显示淡黄色
           }
         },
-        layoutCenter: ['50%', '70%'],
+        layoutCenter: ['50%', '75%'],
         layoutSize: '120%',
-        zoom: 1.1,
+        zoom: 1,
         zIndex: 3 , // 确保在边界地图下方
       }],
       title: {
         text: '地方级非遗政策数量',
         left: 155,  // 修改为左侧
-        top: 20,      // 调整顶部距离
+        top: 60,      // 调整顶部距离
         textStyle: {
           color: '#333',
           fontSize: 20,
@@ -197,7 +197,7 @@ onMounted(() => {
       graphic: [{
         type: 'image',
         left: 110,     // 左侧距离
-        top: 35,      // 图片在标题下方
+        top: 75,      // 图片在标题下方
         style: {
           image: '/map_images/标题修饰.png',
           width: 250
@@ -217,10 +217,12 @@ onMounted(() => {
   width: 100vw;
   height: 100vh;
   background-image: url('/map_images/总背景底图2.png');
-  background-size: cover;
+  background-size: cover; /* 修改为cover模式 */
   background-position: center;
   background-repeat: no-repeat;
-  background-attachment: scroll;
+  background-attachment: fixed; /* 添加固定背景 */
+  background-size: 100vw 100vh; /* 完全拉伸 */
+  background-attachment: scroll; /* 允许滚动 */
 }
 
 /* 导航按钮样式 */
@@ -384,10 +386,10 @@ onMounted(() => {
 /* 地图容器样式 */
 .map-container {
   width: 40vw;
-  height: 60vh;
+  height: 70vh; /* 从60vh增加到70vh */
   position: absolute;
   right: 5vw;
-  bottom: 5vh;
+  bottom: 10vh; /* 恢复到底部5vh位置 */
   background: rgba(255, 255, 255, 0);
   border-radius: 8px;
   z-index: 2;
@@ -395,10 +397,10 @@ onMounted(() => {
 
 .boundary-container {
   width: 40vw;
-  height: 60vh;
+  height: 70vh; /* 从60vh增加到70vh */
   position: absolute;
   right: 5vw;
-  bottom: 5vh;
+  bottom: 10vh; /* 恢复到底部5vh位置 */
   pointer-events: none;
   z-index: 1;
 }
