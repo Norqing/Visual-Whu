@@ -22,6 +22,21 @@
       <img src="\map_images\标题修饰.png" alt="标题修饰" class="title-decoration">
     </div>
     
+    <!-- 添加搜索框 -->
+    <div class="search-area">
+      <q-input 
+        v-model="searchProvince"
+        outlined
+        placeholder="输入省份名称"
+        class="search-input"
+      />
+      <q-btn 
+        class="search-btn"
+        icon="search"
+        @click="handleSearch"
+      />
+    </div>
+    
     <!-- 文本框区域 -->
     <div class="textbox-container">
       <template v-for="(item, index) in textItems" :key="index">
@@ -49,19 +64,66 @@
 import * as echarts from 'echarts';
 import getChinaMap from '../api/getmap';
 import getBoundaries from '../api/getboundaries';
-import { onMounted, ref, computed } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
+import axios from 'axios';
 
 const router = useRouter();
 const currentSite = ref('map2');
+const searchProvince = ref('');
+const localPolicies = ref([]);
 
 // 文本框数据
 const textItems = ref([
-  { text: '地方政策1', icon: '地方级政策前缀修饰1.png' },
-  { text: '地方政策2', icon: '地方级政策前缀修饰2.png' },
-  { text: '地方政策3', icon: '地方级政策前缀修饰3.png' },
-  { text: '地方政策4', icon: '地方级政策前缀修饰4.png' }
+  { text: '地方政策1', url: null, icon: '地方级政策前缀修饰1.png' },
+  { text: '地方政策2', url: null, icon: '地方级政策前缀修饰2.png' },
+  { text: '地方政策3', url: null, icon: '地方级政策前缀修饰3.png' },
+  { text: '地方政策4', url: null, icon: '地方级政策前缀修饰4.png' }
 ]);
+
+// 导入本地JSON数据 
+// 修改JSON导入路径
+import localPoliciesData from '/public/data/_地方非遗政策.json';
+
+const fetchLocalPolicies = async (province) => {
+  try {
+    const provinceStr = String(province || '').trim();
+    
+    // 直接从本地JSON数据中过滤匹配项
+    const matchedPolicies = localPoliciesData.filter(item => 
+      item.province && item.province.includes(provinceStr)
+    );
+    
+    // 更新文本框内容
+    textItems.value = matchedPolicies.slice(0, 4).map((item, index) => ({
+      text: item.title || `地方政策${index + 1}`,
+      url: item.url || null,
+      icon: `地方级政策前缀修饰${(index % 4) + 1}.png`
+    }));
+  } catch (error) {
+    console.error('获取地方政策失败:', error);
+    textItems.value = [
+      { text: '地方政策1', url: null, icon: '地方级政策前缀修饰1.png' },
+      { text: '地方政策2', url: null, icon: '地方级政策前缀修饰2.png' },
+      { text: '地方政策3', url: null, icon: '地方级政策前缀修饰3.png' },
+      { text: '地方政策4', url: null, icon: '地方级政策前缀修饰4.png' }
+    ];
+  }
+};
+
+// 监听省份搜索变化
+const handleSearch = () => {
+  // 确保处理的是字符串
+  const searchText = String(searchProvince.value || '').trim();
+  if (searchText) {
+    fetchLocalPolicies(searchText);
+  }
+};
+
+// 移除原有的watch监听
+// watch(searchProvince, (newVal) => {
+//   fetchLocalPolicies(newVal);
+// });
 
 const getTextboxStyle = (i) => {
   const positions = [
@@ -401,5 +463,23 @@ onMounted(() => {
   margin-bottom: 1vh;
   object-fit: contain;
 }
-</style>
 
+
+/* 添加搜索框样式 */
+/* 搜索框样式优化 */
+.search-area {
+  position: absolute;
+  top: 10vh;
+  right: 11.5vw;
+  z-index: 10;
+}
+
+.search-input {
+  width: 30vw;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  font-size: 1.2vw;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+  padding: 8px 20px;
+}
+</style>

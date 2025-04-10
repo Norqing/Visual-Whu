@@ -89,3 +89,10 @@ class PolicyItemResponse(PolicyItemBase):
     
     class Config:
         orm_mode = True
+
+
+class LocalPolicyItemResponse(BaseModel):
+    id: int
+    title: str
+    url: int
+    province: str

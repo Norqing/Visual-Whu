@@ -4,13 +4,13 @@
     <div class="nav-buttons">
       <q-btn 
         class="nav-btn"
-        label="国家非遗政策" 
+        label="全国政策地图" 
         @click="switchSite('map')"
         :class="{ active: currentSite === 'map' }"
       />
       <q-btn 
         class="nav-btn"
-        label="地方非遗政策"
+        label="地方文化地图"
         @click="switchSite('map2')" 
         :class="{ active: currentSite === 'map2' }"
       />
