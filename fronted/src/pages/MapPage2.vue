@@ -251,8 +251,8 @@ onMounted(() => {
 /* 标题区域样式 */
 .title-area {
   position: absolute;
-  top: 12vh;
-  left: 6.6vw;
+  top: 6vh;
+  left: 4vw;
   display: flex;
   flex-direction: column;
   align-items: flex-start;

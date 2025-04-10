@@ -59,9 +59,14 @@
     </div>
     
     <!-- 添加右侧详情区域 -->
-    <div class="detail-container">
-      <div class="detail-content">
-        {{ currentDetail }}
+    <div class="right-container">
+      <div class="detail-image-container">
+        <img src="/map_images/国家政策设计.png" alt="政策背景图" class="detail-image">
+      </div>
+      <div class="detail-container">
+        <div class="detail-content">
+          {{ currentDetail }}
+        </div>
       </div>
     </div>
     
@@ -229,11 +234,13 @@ const switchSite = (site) => {
 
 /* 调整标题区域位置 */
 .title-area {
-  top: 12vh; /* 从原来的1vh调整为12vh */
-  left: 6.6vw;
+  position: absolute;
+  top: 6vh;
+  left: 4vw;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  z-index: 10;
 }
 
 
@@ -328,7 +335,7 @@ const switchSite = (site) => {
   transform: translateY(-50%);
   width: 0.8vw;
   height: 0.8vw;
-  background-image: url('/map_images/国家级非遗政策牵引点.png');
+  background-image: url('/map_images/国家级非遗文化牵引点.png');
   background-size: contain;
   background-repeat: no-repeat;
 }
@@ -344,22 +351,61 @@ const switchSite = (site) => {
 
 .page-btn {
   padding: 8px 16px;
-  background-color: rgba(255,255,255,0.7);
+  background-color: rgba(255, 255, 255, 0);
   border-radius: 4px;
 }
 
 
+.right-container {
+  position: absolute;
+  right: 2vw;
+  top: 10vh;
+  width: 44vw; /* 从40vw增加到48vw */
+  height: 86vh; /* 从80vh增加到86vh */
+  z-index: 1;
+} 
+
+.detail-image-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+}
+
+.detail-image {
+  width: 44vw;
+  height: 100%;
+  object-fit: contain; /* 从cover改为contain确保完整显示 */
+  border-radius: 8px;
+}
+
 .detail-container {
   position: absolute;
-  right: 5vw;
-  top: 15vh;
-  width: 40vw; /* 从60vw减少到45vw (降低1/4) */
-  height: 80vh;
-  background: rgba(255, 255, 255, 0.105); /* 透明度调整为0.7 */
-  border-radius: 8px;
+  width: 35vw;
+  height: 70vh;
+  left: 4vw;
+  top: 12vh;
+  background: transparent;
+  z-index: 5;
   padding: 20px;
   overflow-y: auto;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  /* 新增滚动条样式 */
+  scrollbar-width: middle;
+  scrollbar-color: rgba(65, 58, 58, 0.785) transparent;
+}
+
+.detail-container::-webkit-scrollbar {
+  width: 6px;
+  background-color: transparent;
+}
+
+.detail-container::-webkit-scrollbar-thumb {
+  background-color: rgba(255,255,255,0.3);
+  border-radius: 3px;
+}
+
+.detail-container::-webkit-scrollbar-track {
+  background-color: transparent;
 }
 
 .detail-content {
