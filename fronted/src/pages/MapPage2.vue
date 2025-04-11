@@ -55,6 +55,24 @@
     </div>
 
     <!-- 地图容器 -->
+    <!-- 在文本框区域下方添加分页控件 -->
+    <div class="pagination">
+      <q-btn 
+        class="page-btn"
+        icon="chevron_left"
+        @click="changePage(currentPage - 1)"
+        :disabled="currentPage <= 1"
+      />
+      <span class="page-info">第 {{ currentPage }} 页 / 共 {{ totalPages }} 页</span>
+      <q-btn 
+        class="page-btn"
+        icon="chevron_right"
+        @click="changePage(currentPage + 1)"
+        :disabled="currentPage >= totalPages"
+      />
+    </div>
+    
+    <!-- 地图容器保持不变 -->
     <div class="map-container" ref="chartsDOM"></div>
     <div class="boundary-container" ref="boundaryDOM"></div>
   </q-page>
@@ -75,48 +93,84 @@ const localPolicies = ref([]);
 
 // 文本框数据
 const textItems = ref([
-  { text: '地方政策1', url: null, icon: '地方级政策前缀修饰1.png' },
-  { text: '地方政策2', url: null, icon: '地方级政策前缀修饰2.png' },
-  { text: '地方政策3', url: null, icon: '地方级政策前缀修饰3.png' },
-  { text: '地方政策4', url: null, icon: '地方级政策前缀修饰4.png' }
+  { text: '地方政策1', url: null, icon: '地方级政策前缀修饰1.png' },  
+  { text: '', url: null, icon: '地方级政策前缀修饰2.png' },
+  { text: '', url: null, icon: '地方级政策前缀修饰3.png' },
+  { text: '', url: null, icon: '地方级政策前缀修饰4.png' }
 ]);
 
 // 导入本地JSON数据 
 // 修改JSON导入路径
 import localPoliciesData from '/public/data/_地方非遗政策.json';
 
+// 新增分页相关变量
+const currentPage = ref(1);
+const pageSize = 4; // 每页显示4条数据
+const totalPages = ref(1);
+
 const fetchLocalPolicies = async (province) => {
   try {
     const provinceStr = String(province || '').trim();
+    currentPage.value = 1; // 搜索时重置到第一页
     
     // 直接从本地JSON数据中过滤匹配项
     const matchedPolicies = localPoliciesData.filter(item => 
       item.province && item.province.includes(provinceStr)
     );
     
-    // 更新文本框内容
-    textItems.value = matchedPolicies.slice(0, 4).map((item, index) => ({
-      text: item.title || `地方政策${index + 1}`,
-      url: item.url || null,
-      icon: `地方级政策前缀修饰${(index % 4) + 1}.png`
-    }));
+    // 计算总页数
+    totalPages.value = Math.ceil(matchedPolicies.length / pageSize);
+    localPolicies.value = matchedPolicies;
+    
+    // 更新当前页数据
+    updateCurrentPageData();
   } catch (error) {
     console.error('获取地方政策失败:', error);
+    textItems.value = [
+      { text: '地方政策', url: null, icon: '地方级政策前缀修饰1.png' },
+      { text: '', url: null, icon: '地方级政策前缀修饰2.png' },
+      { text: '', url: null, icon: '地方级政策前缀修饰3.png' },
+      { text: '', url: null, icon: '地方级政策前缀修饰4.png' }
+    ];
+  }
+};
+
+// 新增分页更新函数
+const updateCurrentPageData = () => {
+  const startIndex = (currentPage.value - 1) * pageSize;
+  const endIndex = startIndex + pageSize;
+  const currentData = localPolicies.value.slice(startIndex, endIndex);
+  
+  textItems.value = currentData.map((item, index) => ({
+    text: item.title || `地方政策${index + 1}`,
+    url: item.url || null,
+    icon: `地方级政策前缀修饰${(index % 4) + 1}.png`
+  }));
+};
+
+// 新增分页切换函数
+const changePage = (page) => {
+  if (page < 1 || page > totalPages.value) return;
+  currentPage.value = page;
+  updateCurrentPageData();
+};
+
+// 修改handleSearch函数
+const handleSearch = () => {
+  const searchText = String(searchProvince.value || '').trim();
+  if (searchText) {
+    fetchLocalPolicies(searchText);
+  } else {
+    // 清空搜索时重置状态
+    currentPage.value = 1;
+    totalPages.value = 1;
+    localPolicies.value = [];
     textItems.value = [
       { text: '地方政策1', url: null, icon: '地方级政策前缀修饰1.png' },
       { text: '地方政策2', url: null, icon: '地方级政策前缀修饰2.png' },
       { text: '地方政策3', url: null, icon: '地方级政策前缀修饰3.png' },
       { text: '地方政策4', url: null, icon: '地方级政策前缀修饰4.png' }
     ];
-  }
-};
-
-// 监听省份搜索变化
-const handleSearch = () => {
-  // 确保处理的是字符串
-  const searchText = String(searchProvince.value || '').trim();
-  if (searchText) {
-    fetchLocalPolicies(searchText);
   }
 };
 
@@ -127,10 +181,10 @@ const handleSearch = () => {
 
 const getTextboxStyle = (i) => {
   const positions = [
-    { top: 15, left: 4 },   // 第一列位置
-    { top: 15, left: 10 },   // 第二列位置
-    { top: 15, left: 16 },  // 第三列位置
-    { top: 15, left: 22 }   // 第四列位置
+    { top: 10, left: 4 },   // 第一列位置
+    { top: 10, left: 10 },   // 第二列位置
+    { top: 10, left: 16 },  // 第三列位置
+    { top: 10, left: 22 }   // 第四列位置
   ];
   return {
     top: `${positions[i-1].top}vh`,
@@ -139,7 +193,12 @@ const getTextboxStyle = (i) => {
 };
 
 const onTextClick = (index) => {
-  console.log('点击了政策:', textItems.value[index]);
+  const item = textItems.value[index];
+  if (item.url) {
+    window.open(`https://www.ihchina.cn/zhengce_details/${item.url}`, '_blank');
+  } else {
+    console.log('点击了政策:', item.text);
+  }
 };
 
 const switchSite = (site) => {
@@ -201,6 +260,12 @@ onMounted(() => {
     
     // 调整中国地图配置
     const mainOption = {
+      tooltip: {
+        trigger: 'item',
+        formatter: function(params) {
+          return `${params.name}<br/>非遗政策数量: ${params.value || 0}`;
+        }
+      },
       visualMap: {
         min: 0,
         max: 10,
@@ -208,7 +273,7 @@ onMounted(() => {
         realtime: false,
         calculable: true,
         inRange: {
-          color: ['rgb(240,236,227)', 'rgb(209,196,158)']  // 修改为指定的RGB颜色渐变
+          color: ['rgb(240,236,227)', 'rgb(209,196,158)']
         }
       },
       series: [{
@@ -216,7 +281,9 @@ onMounted(() => {
         type: 'map',
         map: 'China',
         label: {
-          show: false  // 关闭地图上的省份文本标签
+          show: false,  // 显示省份标签
+          color: '#333',
+          fontSize: 12
         },
         data: [
           {name: '北京市', value: 7}, {name: '天津市', value: 5},
@@ -237,21 +304,29 @@ onMounted(() => {
           {name: '新疆维吾尔自治区', value: 1}, {name: '台湾', value: 0},
           {name: '香港', value: 0}, {name: '澳门', value: 0}
         ],
-        emphasis: {  // 取消悬停高亮效果
+        emphasis: {
           itemStyle: {
-            areaColor: undefined  // 取消悬停颜色
+            areaColor: 'rgb(233,213,181)'  // 悬停时显示淡黄色
+          },
+          label: {
+            show: true,
+            color: '#000',
+            fontSize: 14,
+            fontWeight: 'bold'
           }
         },
-        selectedMode: 'single',  // 启用单选模式
-        select: {  // 设置选中样式
+        selectedMode: 'single',
+        select: {
           itemStyle: {
-            areaColor: 'rgb(233,213,181)'  // 点击时显示淡黄色
+            areaColor: 'rgb(233,213,181)'
           }
         },
+
+
         layoutCenter: ['50%', '75%'],
         layoutSize: '120%',
         zoom: 1,
-        zIndex: 3 , // 确保在边界地图下方
+        zIndex: 10,
       }],
       title: {
         text: '地方级非遗政策数量',
@@ -277,6 +352,22 @@ onMounted(() => {
     boundaryChart.setOption(boundaryOption);
     myChart.setOption(mainOption);
     
+    // 添加点击事件监听
+    myChart.on('click', function(params) {
+      const provinceName = params.name;
+      const policyCount = params.value;
+
+      
+      console.log('点击参数:', params);
+      console.log('省份名称:', provinceName);
+      console.log('政策数量:', policyCount);
+
+      
+      // 可以根据省份名称自动搜索
+      searchProvince.value = provinceName;
+      handleSearch();
+    });
+
   });
 });
 </script>
@@ -364,16 +455,43 @@ onMounted(() => {
 }
 
 .textbox {
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
+  writing-mode: vertical-lr;
+  text-orientation: upright;
   width: auto;
   min-height: 15vh;
+  max-height: 60vh;
   padding: 1vh 0;
   margin-left: 0;
   font-family: "SimSun", serif;
-  font-size: 1vw;
+  font-size: 0.9vw;
   font-weight: bold;
-  transition: all 0.3s ease; /* 添加过渡效果 */
+  transition: all 0.3s ease;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.6;
+  word-break: break-all;
+  text-align: start; /* 修改为居中 */
+  white-space: normal;
+  display: flex; /* 使用flex布局 */
+  flex-direction: column;
+  justify-content: center; /* 垂直居中 */
+  align-items: center; /* 水平居中 */
+}
+
+/* 调整文本框容器样式 */
+.textbox-item {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 修改为居中 */
+  justify-content: center;
+  transform: translateX(-50%); /* 保持中间位置不变 */
+}
+
+.textbox {
+  -webkit-line-clamp: unset;
+  -webkit-box-orient: unset;
+  display: block;
 }
 
 .textbox:hover {
@@ -395,13 +513,13 @@ onMounted(() => {
   transform: translateX(50%);
 }
 
-/* 分页按钮样式 */
+/* 分页控件样式 */
 .pagination {
   position: absolute;
-  bottom: 5vh;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 4vw;  /* 与标题区域对齐 */
+  bottom: 10vh;  /* 调整为10vh */
   display: flex;
+  align-items: center;
   gap: 20px;
   z-index: 10;
 }
@@ -410,6 +528,18 @@ onMounted(() => {
   padding: 8px 16px;
   background-color: rgba(255,255,255,0.7);
   border-radius: 4px;
+  min-width: 40px;
+}
+
+.page-info {
+  color: #333;
+  font-family: "SimSun", serif;
+  font-size: 1vw;
+}
+
+.page-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* 详情区域样式 */
