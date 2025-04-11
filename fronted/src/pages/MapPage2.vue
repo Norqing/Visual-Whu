@@ -56,17 +56,16 @@
 
     <!-- 地图容器 -->
     <!-- 在文本框区域下方添加分页控件 -->
+    <!-- 修改分页控件部分 -->
     <div class="pagination">
-      <q-btn 
-        class="page-btn"
-        icon="chevron_left"
+      <button 
+        class="prev-btn"
         @click="changePage(currentPage - 1)"
         :disabled="currentPage <= 1"
       />
       <span class="page-info">第 {{ currentPage }} 页 / 共 {{ totalPages }} 页</span>
-      <q-btn 
-        class="page-btn"
-        icon="chevron_right"
+      <button 
+        class="next-btn"
         @click="changePage(currentPage + 1)"
         :disabled="currentPage >= totalPages"
       />
@@ -516,7 +515,7 @@ onMounted(() => {
 /* 分页控件样式 */
 .pagination {
   position: absolute;
-  left: 4vw;  /* 与标题区域对齐 */
+  left: 10vw;  /* 与标题区域对齐 */
   bottom: 10vh;  /* 调整为10vh */
   display: flex;
   align-items: center;
@@ -602,14 +601,44 @@ onMounted(() => {
   top: 10vh;
   right: 11.5vw;
   z-index: 10;
+  display: flex; /* 添加flex布局 */
+  align-items: center; /* 垂直居中 */
+  gap: 0px; /* 按钮和输入框间距 */
 }
 
 .search-input {
-  width: 30vw;
-  background: rgba(255, 255, 255, 0.95);
+  width: 20vw; /* 从30vw缩小到20vw */
+  background: rgba(255, 255, 255, 0.244);
   border-radius: 20px;
   font-size: 1.2vw;
   box-shadow: 0 2px 15px rgba(0,0,0,0.1);
   padding: 8px 20px;
+}
+
+.search-btn {
+  padding: 8px 16px; /* 调整按钮内边距 */
+  border-radius: 20px; /* 与输入框保持一致 */
+}
+
+.prev-btn, .next-btn {
+  width: 40px;
+  height: 40px;
+  background: url('/public/map_images/翻页按键.png') no-repeat center;
+  background-size: contain;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.prev-btn {
+  left:-3vw;
+  transform: translateY(-50%) rotate(90deg); /* 顺时针旋转90° */
+}
+
+.next-btn {
+  right: -3vw;
+  transform: translateY(-50%) rotate(-90deg); /* 逆时针旋转90° */
 }
 </style>
