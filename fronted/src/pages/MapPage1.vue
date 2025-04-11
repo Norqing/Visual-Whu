@@ -235,8 +235,8 @@ const switchSite = (site) => {
 /* 调整标题区域位置 */
 .title-area {
   position: absolute;
-  top: 6vh;
-  left: 4vw;
+  top: 4vh;
+  left: 8vw;
   display: flex;
   flex-direction: column;
   align-items: flex-start;

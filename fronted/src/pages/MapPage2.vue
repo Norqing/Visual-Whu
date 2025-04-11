@@ -103,10 +103,10 @@ const localPolicies = ref([]);
 
 // 文本框数据
 const textItems = ref([
-  { text: '地方政策1', url: null, icon: '地方级政策前缀修饰1.png' },  
-  { text: '', url: null, icon: '地方级政策前缀修饰2.png' },
-  { text: '', url: null, icon: '地方级政策前缀修饰3.png' },
-  { text: '', url: null, icon: '地方级政策前缀修饰4.png' }
+  { text: '点击地图省份检索地方政策', url: null, icon: '地方级政策前缀修饰1.png' },  
+  { text: '', url: null, icon: '' },
+  { text: '', url: null, icon: '' },
+  { text: '', url: null, icon: '' }
 ]);
 
 // 导入本地JSON数据 
@@ -247,6 +247,7 @@ const chartsDOM = ref(null);
 const boundaryDOM = ref(null); // 新增边界地图引用
 
 onMounted(() => {
+  showText.value = true;
   const myChart = echarts.init(chartsDOM.value);
   const boundaryChart = echarts.init(boundaryDOM.value);
   
@@ -408,7 +409,7 @@ onMounted(() => {
 .policy-page {
   width: 100vw;
   height: 100vh;
-  background-image: url('/map_images/总背景底图2.png');
+  background-image: url('/map_images/总背景底图1.png');
   background-size: cover; /* 修改为cover模式 */
   background-position: center;
   background-repeat: no-repeat;
@@ -445,8 +446,8 @@ onMounted(() => {
 /* 标题区域样式 */
 .title-area {
   position: absolute;
-  top: 6vh;
-  left: 4vw;
+  top: 4vh;
+  left: 8vw;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
