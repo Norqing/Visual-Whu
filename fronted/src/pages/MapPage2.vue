@@ -38,21 +38,28 @@
     </div>
     
     <!-- 文本框区域 -->
+    <!-- 修改文本框区域的动画效果 -->
     <div class="textbox-container">
-      <template v-for="(item, index) in textItems" :key="index">
-        <div class="textbox-item" :style="getTextboxStyle(index+1)">
-          <img 
-            :src="`/map_images/${item.icon}`" 
-            class="policy-icon"
-            alt="政策图标"
-          />
-          <div class="textbox" @click="onTextClick(index)">
-            {{ item.text }}
-          </div>
-          <div class="line"></div>
-        </div>
-      </template>
+  <template v-for="(item, index) in textItems" :key="index">
+    <div class="textbox-item" 
+         :style="{
+           ...getTextboxStyle(index+1),
+           opacity: showText ? 1 : 0,
+           transition: `opacity 0.5s`
+         }">
+      <img 
+        v-if="item.icon" 
+        :src="`/map_images/${item.icon}`" 
+        class="policy-icon"
+        alt="政策图标"
+      />
+      <div class="textbox" @click="onTextClick(index)">
+        {{ item.text }}
+      </div>
+      <div class="line"></div>
     </div>
+  </template>
+</div>
 
     <!-- 地图容器 -->
     <!-- 在文本框区域下方添加分页控件 -->
@@ -81,9 +88,13 @@
 import * as echarts from 'echarts';
 import getChinaMap from '../api/getmap';
 import getBoundaries from '../api/getboundaries';
-import { onMounted, ref, watch } from 'vue';
+// 在导入部分添加nextTick
+import { ref, onMounted, nextTick } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
+
+// 添加showText响应式变量
+const showText = ref(false);
 
 const router = useRouter();
 const currentSite = ref('map2');
@@ -135,23 +146,46 @@ const fetchLocalPolicies = async (province) => {
 };
 
 // 新增分页更新函数
+// 修改updateCurrentPageData函数
 const updateCurrentPageData = () => {
   const startIndex = (currentPage.value - 1) * pageSize;
   const endIndex = startIndex + pageSize;
   const currentData = localPolicies.value.slice(startIndex, endIndex);
+
+  showText.value = false;
   
-  textItems.value = currentData.map((item, index) => ({
-    text: item.title || `地方政策${index + 1}`,
-    url: item.url || null,
-    icon: `地方级政策前缀修饰${(index % 4) + 1}.png`
-  }));
+  setTimeout(() => {
+    // 填充4个元素，空数据时保留文本框但内容为空
+    textItems.value = Array(4).fill().map((_, index) => {
+      if (index < currentData.length && currentData[index]) {
+        return {
+          text: currentData[index].title || `地方政策${index + 1}`,
+          url: currentData[index].url || null,
+          icon: `地方级政策前缀修饰${(index % 4) + 1}.png`
+        };
+      }
+      return { text: '', url: null, icon: '' }; // 空数据时保留文本框但内容为空
+    });
+    
+    showText.value = true;
+  }, 500);
 };
 
-// 新增分页切换函数
+// 修改模板部分
+
+
+    // 修改changePage函数
 const changePage = (page) => {
   if (page < 1 || page > totalPages.value) return;
-  currentPage.value = page;
-  updateCurrentPageData();
+  
+  // 先触发淡出动画
+  showText.value = false;
+  
+  // 等待淡出动画完成后再切换页面
+  setTimeout(() => {
+    currentPage.value = page;
+    updateCurrentPageData();
+  }, 500);
 };
 
 // 修改handleSearch函数
@@ -165,10 +199,10 @@ const handleSearch = () => {
     totalPages.value = 1;
     localPolicies.value = [];
     textItems.value = [
-      { text: '地方政策1', url: null, icon: '地方级政策前缀修饰1.png' },
-      { text: '地方政策2', url: null, icon: '地方级政策前缀修饰2.png' },
-      { text: '地方政策3', url: null, icon: '地方级政策前缀修饰3.png' },
-      { text: '地方政策4', url: null, icon: '地方级政策前缀修饰4.png' }
+    { text: '地方政策', url: null, icon: '地方级政策前缀修饰1.png' },
+      { text: '', url: null, icon: '地方级政策前缀修饰2.png' },
+      { text: '', url: null, icon: '地方级政策前缀修饰3.png' },
+      { text: '', url: null, icon: '地方级政策前缀修饰4.png' }
     ];
   }
 };
@@ -214,7 +248,6 @@ const boundaryDOM = ref(null); // 新增边界地图引用
 
 onMounted(() => {
   const myChart = echarts.init(chartsDOM.value);
-  // 初始化边界地图
   const boundaryChart = echarts.init(boundaryDOM.value);
   
   myChart.showLoading();
@@ -489,6 +522,7 @@ onMounted(() => {
 
 .textbox {
   -webkit-line-clamp: unset;
+  line-clamp: unset;
   -webkit-box-orient: unset;
   display: block;
 }
@@ -641,4 +675,13 @@ onMounted(() => {
   right: -3vw;
   transform: translateY(-50%) rotate(-90deg); /* 逆时针旋转90° */
 }
+
+
+.textbox:empty {
+  visibility: hidden; /* 隐藏空文本框内容 */
+}
 </style>
+// 添加这行来触发动画
+setTimeout(() => {
+  showText.value = true;
+}, 300);

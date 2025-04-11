@@ -4,13 +4,13 @@
     <div class="nav-buttons">
       <q-btn 
         class="nav-btn"
-        label="全国政策地图" 
+        label="国家非遗政策" 
         @click="switchSite('map')"
         :class="{ active: currentSite === 'map' }"
       />
       <q-btn 
         class="nav-btn"
-        label="地方文化地图"
+        label="地方非遗政策"
         @click="switchSite('map2')" 
         :class="{ active: currentSite === 'map2' }"
       />
@@ -114,15 +114,15 @@ onMounted(() => fetchPolicyData())
 const getTextboxStyle = (i) => {
   // 只保留奇数编号的位置数据
   const positions = [
-    { top: 6, left:18 },    // 1
-    { top: 15, left: 13.5 },     // 3
-    { top: 24, left: 3.5 },    // 5
-    { top: 33, left: 1 },      // 7
-    { top: 42, left: 0.3 },     // 9
-    { top: 51, left: 2.5 },    // 11
-    { top: 60, left: 6.5},    // 13
-    { top: 69, left: 11.5 },    // 15
-    { top: 78, left: 13 }    // 17
+    { top: 6, left:18.5 },    // 1
+    { top: 15, left: 14 },     // 3
+    { top: 24, left: 4 },    // 5
+    { top: 33, left: 1.5 },      // 7
+    { top: 42, left: 1.8 },     // 9
+    { top: 51, left: 4 },    // 11
+    { top: 60, left: 8},    // 13
+    { top: 69, left: 13 },    // 15
+    { top: 78, left: 14.5 }    // 17
   ];
   return {
     top: `${positions[i-1].top}vh`,
@@ -197,7 +197,7 @@ const switchSite = (site) => {
 .policy-page {
   width: 100vw;
   height: 100vh;
-  background-image: url('/map_images/总背景底图2.png');
+  background-image: url('/map_images/总背景底图1.png');
   background-size: cover; /* 修改为cover模式 */
   background-position: center;
   background-repeat: no-repeat;
@@ -296,7 +296,7 @@ const switchSite = (site) => {
 .textbox-item:nth-child(8) { transition-delay: 1.05s; }
 .textbox-item:nth-child(9) { transition-delay: 1.2s; }
 .textbox {
-  width: 20vw;
+  width: 21vw; /* 从20vw扩大到21vw */
   min-height: 3vh;
   background-color: transparent;
   border: none;
@@ -305,7 +305,7 @@ const switchSite = (site) => {
   justify-content: center;
   padding: 0 1vw;
   margin-right: 0.5vw;
-  font-size: 0.9vw; /* 从1vw减小到0.9vw */
+  font-size: 0.9vw;
   font-family: "SimSun", serif;
   font-weight: bold;
   white-space: normal;
