@@ -1,6 +1,7 @@
 <template>
   <q-page class="q-pa-md">
     <h2 class="q-mb-md text-center">非遗文化数据分析</h2>
+<<<<<<< HEAD
 
     <!-- 筛选和分析控制区 -->
     <div class="row q-col-gutter-md q-mb-md">
@@ -76,11 +77,30 @@
           />
         </template>
       </q-table>
+=======
+    <q-select
+      v-model="chartType"
+      :options="chartOptions"
+      label="选择图表类型"
+      outlined
+      dense
+      class="q-mb-md"
+      style="max-width: 200px"
+    />
+    <div class="chart-container">
+      <q-list dense>
+        <q-item v-for="(item, index) in sampleData" :key="index">
+          <q-item-section>{{ item.name }}</q-item-section>
+          <q-item-section side>{{ item.value }}</q-item-section>
+        </q-item>
+      </q-list>
+>>>>>>> 2bb8487bfaeae7f365c84eef4619038c36b93b4d
     </div>
   </q-page>
 </template>
 
 <script setup>
+<<<<<<< HEAD
 import { ref, computed, onMounted } from 'vue';
 import { useQuasar } from 'quasar';
 import * as XLSX from 'xlsx';
@@ -347,11 +367,23 @@ const exportTable = () => {
 onMounted(async () => {
   await readExcelFile();
 });
+=======
+import { ref } from "vue";
+
+const chartType = ref("柱状图");
+const chartOptions = ["柱状图", "饼图", "折线图"];
+const sampleData = ref([
+  { name: "剪纸", value: 120 },
+  { name: "皮影", value: 200 },
+  { name: "刺绣", value: 150 },
+]);
+>>>>>>> 2bb8487bfaeae7f365c84eef4619038c36b93b4d
 </script>
 
 <style scoped>
 .chart-container {
   width: 100%;
+<<<<<<< HEAD
   min-height: 400px;
   background: #fff;
   border-radius: 8px;
@@ -369,5 +401,15 @@ onMounted(async () => {
 h2 {
   color: #ff6b6b;
   font-weight: 500;
+=======
+  height: 400px;
+  background: #fff;
+  border-radius: 8px;
+  padding: 16px;
+  overflow-y: auto;
+}
+h2 {
+  color: #ff6b6b;
+>>>>>>> 2bb8487bfaeae7f365c84eef4619038c36b93b4d
 }
 </style>
