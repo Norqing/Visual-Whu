@@ -8,7 +8,7 @@ body {
   background-color: #f5f5f5;
   margin: 0;
 }
-.q-page {
+.container-limited {
   max-width: 1200px;
   margin: 0 auto;
 }
