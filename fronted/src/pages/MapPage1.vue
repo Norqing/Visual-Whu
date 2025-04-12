@@ -4,13 +4,13 @@
     <div class="nav-buttons">
       <q-btn 
         class="nav-btn"
-        label="非遗政策地图" 
+        label="国家非遗政策" 
         @click="switchSite('map')"
         :class="{ active: currentSite === 'map' }"
       />
       <q-btn 
         class="nav-btn"
-        label="非遗文化地图"
+        label="地方非遗政策"
         @click="switchSite('map2')" 
         :class="{ active: currentSite === 'map2' }"
       />
@@ -59,9 +59,14 @@
     </div>
     
     <!-- 添加右侧详情区域 -->
-    <div class="detail-container">
-      <div class="detail-content">
-        {{ currentDetail }}
+    <div class="right-container">
+      <div class="detail-image-container">
+        <img src="/map_images/国家政策设计.png" alt="政策背景图" class="detail-image">
+      </div>
+      <div class="detail-container">
+        <div class="detail-content">
+          {{ currentDetail }}
+        </div>
       </div>
     </div>
     
@@ -109,15 +114,15 @@ onMounted(() => fetchPolicyData())
 const getTextboxStyle = (i) => {
   // 只保留奇数编号的位置数据
   const positions = [
-    { top: 6, left:18 },    // 1
-    { top: 15, left: 13.5 },     // 3
-    { top: 24, left: 3.5 },    // 5
-    { top: 33, left: 1 },      // 7
-    { top: 42, left: 0.3 },     // 9
-    { top: 51, left: 2.5 },    // 11
-    { top: 60, left: 6.5},    // 13
-    { top: 69, left: 11.5 },    // 15
-    { top: 78, left: 13 }    // 17
+    { top: 6, left:18.5 },    // 1
+    { top: 15, left: 14 },     // 3
+    { top: 24, left: 4 },    // 5
+    { top: 33, left: 1.5 },      // 7
+    { top: 42, left: 1.8 },     // 9
+    { top: 51, left: 4 },    // 11
+    { top: 60, left: 8},    // 13
+    { top: 69, left: 13 },    // 15
+    { top: 78, left: 14.5 }    // 17
   ];
   return {
     top: `${positions[i-1].top}vh`,
@@ -192,7 +197,7 @@ const switchSite = (site) => {
 .policy-page {
   width: 100vw;
   height: 100vh;
-  background-image: url('/map_images/总背景底图2.png');
+  background-image: url('/map_images/总背景底图1.png');
   background-size: cover; /* 修改为cover模式 */
   background-position: center;
   background-repeat: no-repeat;
@@ -229,11 +234,13 @@ const switchSite = (site) => {
 
 /* 调整标题区域位置 */
 .title-area {
-  top: 12vh; /* 从原来的1vh调整为12vh */
-  left: 6.6vw;
+  position: absolute;
+  top: 4vh;
+  left: 8vw;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+
 }
 
 
@@ -247,12 +254,17 @@ const switchSite = (site) => {
   margin-bottom:-2vh ;
 }
 
+/* 标题装饰图标样式 */
 .title-decoration {
   width: 15vw;
   height: auto;
   margin-left: -0.5vw;
   margin-top: -2.5vh;
+
 }
+
+/* 牵引点图标样式 */
+
 
 .textbox-container {
   position: absolute;
@@ -284,7 +296,7 @@ const switchSite = (site) => {
 .textbox-item:nth-child(8) { transition-delay: 1.05s; }
 .textbox-item:nth-child(9) { transition-delay: 1.2s; }
 .textbox {
-  width: 20vw;
+  width: 21vw; /* 从20vw扩大到21vw */
   min-height: 3vh;
   background-color: transparent;
   border: none;
@@ -293,7 +305,7 @@ const switchSite = (site) => {
   justify-content: center;
   padding: 0 1vw;
   margin-right: 0.5vw;
-  font-size: 0.9vw; /* 从1vw减小到0.9vw */
+  font-size: 0.9vw;
   font-family: "SimSun", serif;
   font-weight: bold;
   white-space: normal;
@@ -344,22 +356,61 @@ const switchSite = (site) => {
 
 .page-btn {
   padding: 8px 16px;
-  background-color: rgba(255,255,255,0.7);
+  background-color: rgba(255, 255, 255, 0);
   border-radius: 4px;
 }
 
 
+.right-container {
+  position: absolute;
+  right: 2vw;
+  top: 10vh;
+  width: 44vw; /* 从40vw增加到48vw */
+  height: 86vh; /* 从80vh增加到86vh */
+
+} 
+
+.detail-image-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+}
+
+.detail-image {
+  width: 44vw;
+  height: 100%;
+  object-fit: contain; /* 从cover改为contain确保完整显示 */
+  border-radius: 8px;
+}
+
 .detail-container {
   position: absolute;
-  right: 5vw;
-  top: 15vh;
-  width: 40vw; /* 从60vw减少到45vw (降低1/4) */
-  height: 80vh;
-  background: rgba(255, 255, 255, 0.105); /* 透明度调整为0.7 */
-  border-radius: 8px;
+  width: 35vw;
+  height: 70vh;
+  left: 4vw;
+  top: 12vh;  
+  background: transparent;
+
   padding: 20px;
   overflow-y: auto;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  /* 新增滚动条样式 */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.3) transparent;
+}
+
+.detail-container::-webkit-scrollbar {
+  width: 6px;
+  background-color: transparent;
+}
+
+.detail-container::-webkit-scrollbar-thumb {
+  background-color: rgba(255,255,255,0.3);
+  border-radius: 3px;
+}
+
+.detail-container::-webkit-scrollbar-track {
+  background-color: transparent;
 }
 
 .detail-content {

@@ -3,7 +3,7 @@
     <q-header elevated>
       <q-toolbar class="nav-toolbar">
         <q-btn flat dense round icon="menu" @click="toggleLeftDrawer" />
-        <q-toolbar-title>非遗文化展示</q-toolbar-title>
+        <q-toolbar-title class="title-text">非遗文化展示</q-toolbar-title>
         <q-btn flat label="首页" to="/" />
         <q-btn-dropdown flat label="文化地图" stretch>
           <q-list>
@@ -57,6 +57,12 @@ function toggleLeftDrawer() {
 
 <style scoped>
 .nav-toolbar {
-  background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+  background: linear-gradient(135deg, #edd3a1, #b69860);
+}
+
+.title-text {
+  font-family: "SimSun", serif;
+  font-weight: bold;
+  color: #8b0000d5; /* 深红色 */
 }
 </style>
