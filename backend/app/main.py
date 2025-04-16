@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 import uvicorn
+from pathlib import Path
 
 app = FastAPI(title="非遗文化展示系统", description="非物质文化遗产展示平台API")
 
@@ -16,12 +17,31 @@ app.add_middleware(
 
 # 路由导入
 from app.api import heritage_items
+from app import policyapp
+from app import map  # 添加这行
 
 # 注册路由
 app.include_router(heritage_items.router, prefix="/api/heritage", tags=["heritage"])
 
+app.include_router(
+    policyapp.router,
+    prefix="/api",
+    tags=["policy"]
+)
+
+# 在路由注册部分添加
+app.include_router(
+    map.router,
+    prefix="/api",
+    tags=["map"]
+)
+
 # 挂载静态文件目录
-app.mount("/static", StaticFiles(directory="app/static"), name="static")
+# 修改静态文件路径配置
+static_dir = Path(__file__).parent / "static"
+static_dir.mkdir(exist_ok=True)  # 确保目录存在
+
+app.mount("/static", StaticFiles(directory=static_dir), name="static")
 
 @app.get("/")
 async def root():

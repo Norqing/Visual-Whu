@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "echarts": "^5.6.0",
+<<<<<<< HEAD
+    "papaparse": "^5.5.2",
+=======
+>>>>>>> 2bb8487bfaeae7f365c84eef4619038c36b93b4d
+    "xlsx": "^0.18.5"
+  }
+}
